@@ -10,7 +10,7 @@
 :root {
   --bg: #ffffff;
   --text: #111;
-  --card: #f3f3f3;
+  --card: #f4f4f4;
 }
 
 body.dark {
@@ -24,7 +24,6 @@ body {
   font-family: 'Amiri', serif;
   background: var(--bg);
   color: var(--text);
-  transition: 0.3s;
 }
 
 header {
@@ -45,22 +44,27 @@ main {
   padding: 20px;
 }
 
-.ayah {
+.ayah-card {
   background: var(--card);
   padding: 16px;
   margin-bottom: 12px;
   border-radius: 8px;
 }
 
-.arabic {
-  font-size: 26px;
+.mushaf {
+  font-size: 28px;
   text-align: right;
+  line-height: 2.2;
 }
 
 .translation {
   font-size: 14px;
   opacity: 0.8;
   margin-top: 8px;
+}
+
+.hidden {
+  display: none;
 }
 </style>
 </head>
@@ -69,30 +73,44 @@ main {
 
 <header>
   <h2>📖 Al-Qur’an</h2>
-  <button onclick="toggleTheme()">🌙 / ☀️</button>
+  <div>
+    <button onclick="toggleView()">📜 Mushaf</button>
+    <button onclick="toggleTheme()">🌙 / ☀️</button>
+  </div>
 </header>
 
 <main>
   <select id="surahSelect"></select>
-  <div id="verses"></div>
+
+  <div id="cardView"></div>
+  <div id="mushafView" class="hidden"></div>
 </main>
 
 <script>
+let mushafMode = false;
+
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 
+function toggleView() {
+  mushafMode = !mushafMode;
+  document.getElementById("cardView").classList.toggle("hidden");
+  document.getElementById("mushafView").classList.toggle("hidden");
+}
+
 const surahSelect = document.getElementById("surahSelect");
-const versesDiv = document.getElementById("verses");
+const cardView = document.getElementById("cardView");
+const mushafView = document.getElementById("mushafView");
 
 fetch("https://api.quran.com/api/v4/chapters")
-  .then(res => res.json())
-  .then(data => {
-    data.chapters.forEach(ch => {
-      const opt = document.createElement("option");
-      opt.value = ch.id;
-      opt.textContent = ch.name_simple + " - " + ch.name_arabic;
-      surahSelect.appendChild(opt);
+  .then(r => r.json())
+  .then(d => {
+    d.chapters.forEach(c => {
+      const o = document.createElement("option");
+      o.value = c.id;
+      o.textContent = c.name_simple + " - " + c.name_arabic;
+      surahSelect.appendChild(o);
     });
     loadSurah(1);
   });
@@ -100,18 +118,23 @@ fetch("https://api.quran.com/api/v4/chapters")
 surahSelect.onchange = () => loadSurah(surahSelect.value);
 
 function loadSurah(id) {
-  versesDiv.innerHTML = "Loading...";
-  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=en&words=false`)
-    .then(res => res.json())
-    .then(data => {
-      versesDiv.innerHTML = "";
-      data.verses.forEach(v => {
-        versesDiv.innerHTML += `
-          <div class="ayah">
-            <div class="arabic">${v.text_uthmani}</div>
+  cardView.innerHTML = "Loading...";
+  mushafView.innerHTML = "Loading...";
+
+  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=en`)
+    .then(r => r.json())
+    .then(d => {
+      cardView.innerHTML = "";
+      mushafView.innerHTML = "";
+
+      d.verses.forEach(v => {
+        cardView.innerHTML += `
+          <div class="ayah-card">
+            <div class="mushaf">${v.text_uthmani}</div>
             <div class="translation">${v.translations[0]?.text || ""}</div>
           </div>
         `;
+        mushafView.innerHTML += v.text_uthmani + " ۝ ";
       });
     });
 }
