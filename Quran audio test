@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Qur'an App</title>
+</head>
+<body>
+
+<h1>Qur'an</h1>
+
+<button onclick="playAudio()">Play Sample</button>
+
+<audio id="audio" controls>
+  <source src="https://everyayah.com/data/Abdul_Basit_Murattal/001001.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playAudio() {
+  document.getElementById("audio").play();
+}
+</script>
+
+</body>
+</html>
