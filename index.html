@@ -1,66 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Qur’an App</title>
-  <style>
-    body {
-      font-family: "Amiri", serif;
-      background: #f9f9f9;
-      padding: 20px;
-    }
-    .ayah {
-      font-size: 28px;
-      direction: rtl;
-      text-align: right;
-      margin: 15px 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Al-Qur’an</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f3f3f3;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --card: #1e293b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Amiri', serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  background: var(--card);
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.ayah {
+  background: var(--card);
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.arabic {
+  font-size: 26px;
+  text-align: right;
+}
+
+.translation {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Al-Qur’an</h1>
+<header>
+  <h2>📖 Al-Qur’an</h2>
+  <button onclick="toggleTheme()">🌙 / ☀️</button>
+</header>
 
-<select id="surahSelect"></select>
-
-<div id="quran"></div>
+<main>
+  <select id="surahSelect"></select>
+  <div id="verses"></div>
+</main>
 
 <script>
-const surahSelect = document.getElementById("surahSelect");
-const quranDiv = document.getElementById("quran");
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
 
-// Load Surah list
+const surahSelect = document.getElementById("surahSelect");
+const versesDiv = document.getElementById("verses");
+
 fetch("https://api.quran.com/api/v4/chapters")
   .then(res => res.json())
   .then(data => {
     data.chapters.forEach(ch => {
-      const option = document.createElement("option");
-      option.value = ch.id;
-      option.textContent = `${ch.id}. ${ch.name_simple}`;
-      surahSelect.appendChild(option);
+      const opt = document.createElement("option");
+      opt.value = ch.id;
+      opt.textContent = ch.name_simple + " - " + ch.name_arabic;
+      surahSelect.appendChild(opt);
     });
     loadSurah(1);
   });
 
-// Load Surah text
-function loadSurah(surahNumber) {
-  quranDiv.innerHTML = "Loading...";
-  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${surahNumber}?fields=text_uthmani`)
+surahSelect.onchange = () => loadSurah(surahSelect.value);
+
+function loadSurah(id) {
+  versesDiv.innerHTML = "Loading...";
+  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=en&words=false`)
     .then(res => res.json())
     .then(data => {
-      quranDiv.innerHTML = "";
+      versesDiv.innerHTML = "";
       data.verses.forEach(v => {
-        const ayah = document.createElement("div");
-        ayah.className = "ayah";
-        ayah.textContent = v.text_uthmani;
-        quranDiv.appendChild(ayah);
+        versesDiv.innerHTML += `
+          <div class="ayah">
+            <div class="arabic">${v.text_uthmani}</div>
+            <div class="translation">${v.translations[0]?.text || ""}</div>
+          </div>
+        `;
       });
     });
 }
-
-surahSelect.addEventListener("change", e => {
-  loadSurah(e.target.value);
-});
 </script>
 
 </body>
