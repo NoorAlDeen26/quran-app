@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Qur’an App</title>
+  <style>
+    body {
+      font-family: "Amiri", serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .ayah {
+      font-size: 28px;
+      direction: rtl;
+      text-align: right;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Al-Qur’an</h1>
+
+<select id="surahSelect"></select>
+
+<div id="quran"></div>
+
+<script>
+const surahSelect = document.getElementById("surahSelect");
+const quranDiv = document.getElementById("quran");
+
+// Load Surah list
+fetch("https://api.quran.com/api/v4/chapters")
+  .then(res => res.json())
+  .then(data => {
+    data.chapters.forEach(ch => {
+      const option = document.createElement("option");
+      option.value = ch.id;
+      option.textContent = `${ch.id}. ${ch.name_simple}`;
+      surahSelect.appendChild(option);
+    });
+    loadSurah(1);
+  });
+
+// Load Surah text
+function loadSurah(surahNumber) {
+  quranDiv.innerHTML = "Loading...";
+  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${surahNumber}?fields=text_uthmani`)
+    .then(res => res.json())
+    .then(data => {
+      quranDiv.innerHTML = "";
+      data.verses.forEach(v => {
+        const ayah = document.createElement("div");
+        ayah.className = "ayah";
+        ayah.textContent = v.text_uthmani;
+        quranDiv.appendChild(ayah);
+      });
+    });
+}
+
+surahSelect.addEventListener("change", e => {
+  loadSurah(e.target.value);
+});
+</script>
+
+</body>
+</html>
