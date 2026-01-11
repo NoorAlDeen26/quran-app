@@ -85,3 +85,16 @@ function loadSurah(id) {
     console.error(e);
   }
 });
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const reciterSelect = document.getElementById("reciterSelect");
+const surahSelect = document.getElementById("surahSelect");
+
+playBtn.addEventListener("click", () => {
+  const reciter = reciterSelect.value;
+  const surah = String(surahSelect.value).padStart(3, "0");
+
+  audio.src = `https://everyayah.com/data/${reciter}/${surah}001.mp3`;
+  audio.play();
+});
