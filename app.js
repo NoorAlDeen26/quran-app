@@ -1,7 +1,7 @@
-const reciterSelect = document.getElementById("reciterSelect");
 const surahSelect = document.getElementById("surahSelect");
 const quranText = document.getElementById("quranText");
 const audio = document.getElementById("audio");
+const reciterSelect = document.getElementById("reciterSelect");
 reciterSelect.addEventListener("change", () => {
   loadSurah(surahSelect.value);
 });
@@ -38,10 +38,6 @@ function loadSurah(id) {
     });
 
   // Abdul Basit (reliable source)
-const reciter = reciterSelect.value;
+ const reciter = reciterSelect.value;
 audio.src = `https://everyayah.com/data/${reciter}/${String(id).padStart(3,"0")}001.mp3`;
-
-
-
-
 }
