@@ -1,8 +1,9 @@
 const surahSelect = document.getElementById("surahSelect");
-document.getElementById("leftPage").innerHTML += ayahHtml;
+const quranText = document.getElementById("quranText");
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
+
 
 let playlist = [];
 let currentIndex = 0;
