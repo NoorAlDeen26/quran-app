@@ -38,6 +38,8 @@ function loadSurah(id) {
     });
 
   // Abdul Basit (reliable source)
-const reciter = reciterSelect.value;
-audio.src = `https://everyayah.com/data/${reciter}/${String(id).padStart(3,"0")}001.mp3`;
+<audio id="audio" controls>
+  <source src="https://cdn.islamic.network/quran/audio/128/ar.abdulbasitmurattal/1.mp3" type="audio/mpeg">
+</audio>
+
 }
