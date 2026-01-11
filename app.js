@@ -40,17 +40,7 @@ function loadSurah(id) {
 }
 
 // AUDIO
-playBtn.addEventListener("click", async () => {
-  const surah = surahSelect.value || 1;
-  const reciter = reciterSelect.value;
-
-  try {
-    const res = await fetch(
-      `https://api.alquran.cloud/v1/surah/${surah}/${reciter}`
-    );
-    const data = await res.json();
-
-   playBtn.addEventListener("click", async () => {
+ playBtn.addEventListener("click", async () => {
   const surah = surahSelect.value || 1;
   let reciter = reciterSelect.value;
 
