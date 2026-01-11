@@ -82,3 +82,23 @@ button {
 button:hover {
   filter: brightness(1.1);
 }
+/* Mushaf-style page */
+#quranText {
+  max-width: 760px;
+  margin: 30px auto;
+  background: #f8fafc;
+  color: #020617;
+  border-radius: 18px;
+  padding: 40px 34px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 2px #e5e7eb;
+}
+
+.ayah {
+  font-family: "Amiri", "Scheherazade New", serif;
+  font-size: 32px;
+  line-height: 2.6;
+  text-align: center;
+  margin-bottom: 26px;
+}
