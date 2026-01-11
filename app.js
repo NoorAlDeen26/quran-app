@@ -1,5 +1,5 @@
 const surahSelect = document.getElementById("surahSelect");
-const quranText = document.getElementById("quranText");
+document.getElementById("leftPage").innerHTML += ayahHtml;
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
