@@ -1,6 +1,10 @@
+const reciterSelect = document.getElementById("reciterSelect");
 const surahSelect = document.getElementById("surahSelect");
 const quranText = document.getElementById("quranText");
 const audio = document.getElementById("audio");
+reciterSelect.addEventListener("change", () => {
+  loadSurah(surahSelect.value);
+});
 
 // Load Surah list
 fetch("https://api.quran.com/api/v4/chapters")
@@ -34,5 +38,6 @@ function loadSurah(id) {
     });
 
   // Abdul Basit (reliable source)
-  audio.src = `https://everyayah.com/data/Abdul_Basit_Murattal/${String(id).padStart(3,"0")}001.mp3`;
+const reciter = reciterSelect.value;
+audio.src = `https://everyayah.com/data/${reciter}/${String(id).padStart(3,"0")}001.mp3`;
 }
