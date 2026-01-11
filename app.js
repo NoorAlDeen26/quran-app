@@ -36,11 +36,7 @@ function loadSurah(id) {
       });
     });
 
-  // Abdul Basit (reliable source)
- const reciter = reciterSelect.value;
-}
-
-const playBtn = document.getElementById("playBtn");
+ const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
 
 playBtn.addEventListener("click", async () => {
