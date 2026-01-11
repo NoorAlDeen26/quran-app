@@ -3,6 +3,8 @@ document.getElementById("leftPage").innerHTML += ayahHtml;
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
+document.getElementById("leftPage").innerHTML = quranHtml;
+
 
 let playlist = [];
 let currentIndex = 0;
