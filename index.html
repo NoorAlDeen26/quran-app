@@ -1,144 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Al-Qur’an</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --bg: #ffffff;
-  --text: #111;
-  --card: #f4f4f4;
-}
-
-body.dark {
-  --bg: #0f172a;
-  --text: #e5e7eb;
-  --card: #1e293b;
-}
-
-body {
-  margin: 0;
-  font-family: 'Amiri', serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  background: var(--card);
-}
-
-button {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
-
-.ayah-card {
-  background: var(--card);
-  padding: 16px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-}
-
-.mushaf {
-  font-size: 28px;
-  text-align: right;
-  line-height: 2.2;
-}
-
-.translation {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-top: 8px;
-}
-
-.hidden {
-  display: none;
-}
-</style>
+  <meta charset="UTF-8" />
+  <title>Al-Qur’an</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
 <header>
-  <h2>📖 Al-Qur’an</h2>
-  <div>
-    <button onclick="toggleView()">📜 Mushaf</button>
-    <button onclick="toggleTheme()">🌙 / ☀️</button>
-  </div>
+  <h1>📖 Al-Qur’an</h1>
 </header>
 
 <main>
   <select id="surahSelect"></select>
 
-  <div id="cardView"></div>
-  <div id="mushafView" class="hidden"></div>
+  <div id="quranText"></div>
+
+  <audio id="audio" controls></audio>
 </main>
 
-<script>
-let mushafMode = false;
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-}
-
-function toggleView() {
-  mushafMode = !mushafMode;
-  document.getElementById("cardView").classList.toggle("hidden");
-  document.getElementById("mushafView").classList.toggle("hidden");
-}
-
-const surahSelect = document.getElementById("surahSelect");
-const cardView = document.getElementById("cardView");
-const mushafView = document.getElementById("mushafView");
-
-fetch("https://api.quran.com/api/v4/chapters")
-  .then(r => r.json())
-  .then(d => {
-    d.chapters.forEach(c => {
-      const o = document.createElement("option");
-      o.value = c.id;
-      o.textContent = c.name_simple + " - " + c.name_arabic;
-      surahSelect.appendChild(o);
-    });
-    loadSurah(1);
-  });
-
-surahSelect.onchange = () => loadSurah(surahSelect.value);
-
-function loadSurah(id) {
-  cardView.innerHTML = "Loading...";
-  mushafView.innerHTML = "Loading...";
-
-  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=en`)
-    .then(r => r.json())
-    .then(d => {
-      cardView.innerHTML = "";
-      mushafView.innerHTML = "";
-
-      d.verses.forEach(v => {
-        cardView.innerHTML += `
-          <div class="ayah-card">
-            <div class="mushaf">${v.text_uthmani}</div>
-            <div class="translation">${v.translations[0]?.text || ""}</div>
-          </div>
-        `;
-        mushafView.innerHTML += v.text_uthmani + " ۝ ";
-      });
-    });
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
