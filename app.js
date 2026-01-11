@@ -3,8 +3,6 @@ document.getElementById("leftPage").innerHTML += ayahHtml;
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
-document.getElementById("leftPage").innerHTML = quranHtml;
-
 
 let playlist = [];
 let currentIndex = 0;
@@ -36,7 +34,8 @@ function loadSurah(id) {
         const ayah = document.createElement("div");
         ayah.className = "ayah";
         ayah.textContent = v.text_uthmani;
-        quranText.appendChild(ayah);
+        document.getElementById("leftPage").innerHTML = quranHtml;
+
       });
     });
 }
