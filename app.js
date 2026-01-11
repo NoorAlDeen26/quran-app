@@ -41,22 +41,36 @@ function loadSurah(id) {
 }
 
 const playBtn = document.getElementById("playBtn");
+const reciterSelect = document.getElementById("reciterSelect");
 
 playBtn.addEventListener("click", async () => {
   const surahNumber = surahSelect.value || 1;
+  const reciter = reciterSelect.value;
 
   try {
     const response = await fetch(
-      `https://api.alquran.cloud/v1/surah/${surahNumber}/ar.abdulbasitmurattal`
+      `https://api.alquran.cloud/v1/surah/${surahNumber}/${reciter}`
     );
     const data = await response.json();
 
-    // Use first ayah audio as stream source
-    audio.src = data.data.ayahs[0].audio;
-    audio.load();
+    // Concatenate all ayah audio into one stream (browser plays sequentially)
+    const audioUrls = data.data.ayahs.map(a => a.audio);
+
+    let index = 0;
+    audio.src = audioUrls[index];
     audio.play();
+
+    audio.onended = () => {
+      index++;
+      if (index < audioUrls.length) {
+        audio.src = audioUrls[index];
+        audio.play();
+      }
+    };
+
   } catch (err) {
-    alert("Audio failed to load. Please try again.");
+    alert("Audio failed to load.");
     console.error(err);
   }
 });
+
