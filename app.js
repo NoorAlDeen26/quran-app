@@ -43,36 +43,41 @@ const reciter = reciterSelect.value;
 const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
 
+let playlist = [];
+let currentIndex = 0;
+
 playBtn.addEventListener("click", async () => {
   const surahNumber = surahSelect.value || 1;
   const reciter = reciterSelect.value;
 
   try {
-    const response = await fetch(
+    const res = await fetch(
       `https://api.alquran.cloud/v1/surah/${surahNumber}/${reciter}`
     );
-    const data = await response.json();
+    const json = await res.json();
 
-    // Concatenate all ayah audio into one stream (browser plays sequentially)
-    const audioUrls = data.data.ayahs.map(a => a.audio);
+    playlist = json.data.ayahs.map(a => a.audio);
+    currentIndex = 0;
 
-    let index = 0;
-    audio.src = audioUrls[index];
-    audio.play();
-
-    audio.onended = () => {
-      index++;
-      if (index < audioUrls.length) {
-        audio.src = audioUrls[index];
-        audio.play();
-      }
-    };
-
-  } catch (err) {
-    alert("Audio failed to load.");
-    console.error(err);
+    playNext();
+  } catch (e) {
+    alert("Audio source failed.");
+    console.error(e);
   }
 });
+
+function playNext() {
+  if (currentIndex >= playlist.length) return;
+
+  audio.src = playlist[currentIndex];
+  audio.play();
+
+  audio.onended = () => {
+    currentIndex++;
+    playNext();
+  };
+}
+
 
 
 
