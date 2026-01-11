@@ -1,3 +1,4 @@
+alert("JS LOADED");
 const surahSelect = document.getElementById("surahSelect");
 const quranText = document.getElementById("leftPage");
 const audio = document.getElementById("audio");
