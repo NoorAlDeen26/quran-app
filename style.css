@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
-
 :root {
   --bg: #0f172a;
   --card: #1e293b;
@@ -105,7 +104,6 @@ button:hover {
   text-align: center;
   margin-bottom: 26px;
 }
-
 /* Mushaf spread (two-page view) */
 #mushafWrapper {
   display: flex;
