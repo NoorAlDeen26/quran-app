@@ -25,15 +25,19 @@ surahSelect.addEventListener("change", () => {
 });
 
 function loadSurah(id) {
- let quranHtml = "";
+  let quranHtml = "";
 
   fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani`)
     .then(res => res.json())
     .then(data => {
-    data.verses.forEach(v => {
-  quranHtml += `<div class="ayah">${v.text_uthmani}</div>`;
-});
+      data.verses.forEach(v => {
+        quranHtml += `<div class="ayah">${v.text_uthmani}</div>`;
+      });
+
       document.getElementById("leftPage").innerHTML = quranHtml;
+    });
+}
+
 
     });
 }
