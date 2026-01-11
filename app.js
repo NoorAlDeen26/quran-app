@@ -42,29 +42,35 @@ function loadSurah(id) {
 // AUDIO
 playBtn.addEventListener("click", async () => {
   const surah = surahSelect.value || 1;
-  const reciter = reciterSelect.value;
+  let reciter = reciterSelect.value;
 
   try {
-    const res = await fetch(
+    let res = await fetch(
       `https://api.alquran.cloud/v1/surah/${surah}/${reciter}`
     );
-    const data = await res.json();
+    let data = await res.json();
 
-    playlist = data.data.ayahs.map(a => a.audio);
+    let audios = data.data.ayahs.map(a => a.audio).filter(Boolean);
+
+    // Fallback if audio missing
+    if (audios.length === 0) {
+      alert("Selected reciter unavailable. Switching to Abdul Basit.");
+      reciterSelect.value = "ar.abdulbasitmurattal";
+
+      res = await fetch(
+        `https://api.alquran.cloud/v1/surah/${surah}/ar.abdulbasitmurattal`
+      );
+      data = await res.json();
+      audios = data.data.ayahs.map(a => a.audio);
+    }
+
+    playlist = audios;
     currentIndex = 0;
     playNext();
+
   } catch (e) {
-    alert("Audio failed to load.");
+    alert("Audio failed. Please try again.");
     console.error(e);
   }
 });
 
-function playNext() {
-  if (currentIndex >= playlist.length) return;
-  audio.src = playlist[currentIndex];
-  audio.play();
-  audio.onended = () => {
-    currentIndex++;
-    playNext();
-  };
-}
