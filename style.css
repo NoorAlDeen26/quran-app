@@ -115,11 +115,10 @@ button:hover {
 /* Mushaf spread (two-page view) */
 #mushafWrapper {
   display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin: 40px auto;
-  max-width: 1200px;
+  gap: 20px;
+  max-height: 85vh;
 }
+
 
 .mushafPage {
   background: #f8fafc;
