@@ -67,7 +67,7 @@ function playNextAyah() {
   currentAyah++;
 }
 
-const cover = document.getElementById("coverScreen");
+const cover = document.getElementById("coverScreen")
 const mushaf = document.getElementById("mushafScreen");
 
 cover.addEventListener("click", () => {
