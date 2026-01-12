@@ -6,10 +6,17 @@ const leftPage = document.getElementById("leftPage");
 const rightPage = document.getElementById("rightPage");
 
 playBtn.addEventListener("click", () => {
+  const surahId = surahSelect.value;
   const reciter = reciterSelect.value;
-  const surah = String(surahSelect.value).padStart(3, "0");
 
-  audio.src = `https://everyayah.com/data/${reciter}/${surah}001.mp3`;
+  if (!surahId || !reciter) {
+    alert("Select a surah and a reciter first");
+    return;
+  }
+
+  const paddedSurah = surahId.toString().padStart(3, "0");
+
+  audio.src = `https://cdn.islamic.network/quran/audio-surah/128/${reciter}/${paddedSurah}.mp3`;
   audio.play();
 });
 
