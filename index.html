@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Al-Qur’an</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <h1>Al-Qur’an</h1>
 
-  <!-- Controls -->
   <div class="controls">
     <select id="reciterSelect">
-      <option value="ar.abdulbasitmurattal">Abdul Basit (Murattal)</option>
-      <option value="ar.alafasy">Mishary Alafasy</option>
-      <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
-      <option value="ar.ahmedajamy">Ahmed Al-Ajmy</option>
-      <option value="ar.muhammadayyoub">Muhammad Ayyoub</option>
+      <option value="Abdul_Basit_Murattal_192kbps">Abdul Basit (Murattal)</option>
+      <option value="Alafasy_192kbps">Mishary Alafasy</option>
+      <option value="Husary_192kbps">Mahmoud Al-Husary</option>
+      <option value="Minshawi_Murattal_192kbps">Minshawi (Murattal)</option>
+      <option value="Maher_AlMuaiqly_192kbps">Maher Al-Muaiqly</option>
     </select>
 
     <select id="surahSelect"></select>
@@ -24,10 +23,8 @@
     <button id="playBtn">Play</button>
   </div>
 
-  <!-- Quran Text -->
   <div id="quranText"></div>
 
-  <!-- Audio -->
   <audio id="audio" controls></audio>
 
   <script src="app.js"></script>
