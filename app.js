@@ -5,21 +5,6 @@ const audio = document.getElementById("audio");
 const leftPage = document.getElementById("leftPage");
 const rightPage = document.getElementById("rightPage");
 
-playBtn.addEventListener("click", () => {
-  const surahId = surahSelect.value;
-  const reciter = reciterSelect.value;
-
-  if (!surahId || !reciter) {
-    alert("Select a surah and a reciter first");
-    return;
-  }
-
-  const paddedSurah = surahId.toString().padStart(3, "0");
-
-  audio.src = `https://cdn.islamic.network/quran/audio-surah/128/${reciter}/${paddedSurah}.mp3`;
-  audio.play();
-});
-
 
 // Load Surah list
 fetch("https://api.quran.com/api/v4/chapters")
@@ -64,15 +49,21 @@ function loadSurah(id) {
 
 
 // AUDIO
- playBtn.addEventListener("click", async () => {
-  const surah = surahSelect.value || 1;
-  let reciter = reciterSelect.value;
+ playBtn.addEventListener("click", () => {
+  const surahId = surahSelect.value;
+  const reciter = reciterSelect.value;
 
-  try {
-    let res = await fetch(
-      `https://api.alquran.cloud/v1/surah/${surah}/${reciter}`
-    );
-    let data = await res.json();
+  if (!surahId || !reciter) {
+    alert("Select a surah and a reciter first");
+    return;
+  }
+
+  const paddedSurah = surahId.toString().padStart(3, "0");
+
+  audio.src = `https://cdn.islamic.network/quran/audio-surah/128/${reciter}/${paddedSurah}.mp3`;
+  audio.play();
+});
+let data = await res.json();
 
     let audios = data.data.ayahs.map(a => a.audio).filter(Boolean);
 
