@@ -3,51 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <title>Al-Qur’an</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-  <h1>📖 Al-Qur’an</h1>
-</header>
+  <h1>Al-Qur’an</h1>
 
-<main>
+  <!-- Controls -->
+  <div class="controls">
+    <select id="reciterSelect">
+      <option value="ar.abdulbasitmurattal">Abdul Basit (Murattal)</option>
+      <option value="ar.alafasy">Mishary Alafasy</option>
+      <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
+      <option value="ar.ahmedajamy">Ahmed Al-Ajmy</option>
+      <option value="ar.muhammadayyoub">Muhammad Ayyoub</option>
+    </select>
 
-  <!-- Reciter -->
-  <select id="reciterSelect">
-    <option value="ar.abdulbasitmurattal">Abdul Basit (Murattal)</option>
-    <option value="ar.alafasy">Mishary Rashid Alafasy</option>
-    <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
-    <option value="ar.abdurrahmaansudais">Abdurrahman Al-Sudais</option>
-    <option value="ar.yasiraldawsari">Yasser Al-Dawsari</option>
-<option value="ar.saoodshuraym">Saud Al-Shuraim</option>
-<option value="ar.mahermuaiqly">Maher Al-Muaiqly</option>
-<option value="ar.yasseraldossari">Yasser Al-Dossari</option>
-<option value="ar.husarymujawwad">Mahmoud Khalil Al-Husary (Mujawwad)</option>
-<option value="ar.ahmedajamy">Ahmed Al-Ajmy</option>
-<option value="ar.hudhaify">Ali Al-Hudhaify</option>
-<option value="ar.muhammadayyoub">Muhammad Ayyoub</option>
-<option value="ar.muhammadjibreel">Muhammad Jibreel</option>
+    <select id="surahSelect"></select>
 
-  </select>
-
-  <!-- Surah -->
-  <select id="surahSelect"></select>
+    <button id="playBtn">Play</button>
+  </div>
 
   <!-- Quran Text -->
-  <div id="mushafWrapper">
-  <div class="mushafPage" id="leftPage"></div>
-  <div class="mushafPage" id="rightPage"></div>
-</div>
-
+  <div id="quranText"></div>
 
   <!-- Audio -->
   <audio id="audio" controls></audio>
-  <button id="playBtn">▶ Play</button>
 
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
-
 </html>
