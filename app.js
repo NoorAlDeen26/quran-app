@@ -1,13 +1,18 @@
-alert("JS LOADED");
 const surahSelect = document.getElementById("surahSelect");
-const quranText = document.getElementById("leftPage");
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
 const reciterSelect = document.getElementById("reciterSelect");
+const playBtn = document.getElementById("playBtn");
+const audio = document.getElementById("audio");
+const leftPage = document.getElementById("leftPage");
+const rightPage = document.getElementById("rightPage");
 
+playBtn.addEventListener("click", () => {
+  const reciter = reciterSelect.value;
+  const surah = String(surahSelect.value).padStart(3, "0");
 
-let playlist = [];
-let currentIndex = 0;
+  audio.src = `https://everyayah.com/data/${reciter}/${surah}001.mp3`;
+  audio.play();
+});
+
 
 // Load Surah list
 fetch("https://api.quran.com/api/v4/chapters")
@@ -84,17 +89,4 @@ function loadSurah(id) {
     alert("Audio failed. Please try again.");
     console.error(e);
   }
-});
-
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const reciterSelect = document.getElementById("reciterSelect");
-const surahSelect = document.getElementById("surahSelect");
-
-playBtn.addEventListener("click", () => {
-  const reciter = reciterSelect.value;
-  const surah = String(surahSelect.value).padStart(3, "0");
-
-  audio.src = `https://everyayah.com/data/${reciter}/${surah}001.mp3`;
-  audio.play();
 });
