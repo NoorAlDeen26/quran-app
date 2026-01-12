@@ -1,0 +1,37 @@
+body {
+  font-family: serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+select, button {
+  padding: 8px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+#quranText {
+  max-width: 800px;
+  margin: auto;
+  text-align: right;
+  direction: rtl;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.ayah {
+  font-size: 22px;
+  line-height: 2;
+  margin-bottom: 10px;
+}
