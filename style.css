@@ -89,3 +89,6 @@ body {
     <div id="quranText"></div>
   </div>
 </div>
+.hidden {
+  display: none !important;
+}
