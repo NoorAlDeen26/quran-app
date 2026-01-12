@@ -1,6 +1,6 @@
 body {
-  font-family: serif;
-  background: #f7f7f7;
+  font-family: "Amiri", serif;
+  background: #f4f4f4;
   margin: 0;
   padding: 20px;
   text-align: center;
@@ -15,23 +15,29 @@ h1 {
 }
 
 select, button {
-  padding: 8px;
-  margin: 5px;
+  padding: 10px;
   font-size: 16px;
+  margin: 5px;
 }
 
 #quranText {
   max-width: 800px;
-  margin: auto;
+  margin: 20px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
   text-align: right;
   direction: rtl;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
 }
 
 .ayah {
-  font-size: 22px;
-  line-height: 2;
-  margin-bottom: 10px;
+  font-size: 24px;
+  line-height: 2.2;
+  margin-bottom: 12px;
+}
+
+audio {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
 }
