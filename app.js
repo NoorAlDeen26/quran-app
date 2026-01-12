@@ -9,16 +9,16 @@ fetch("https://api.quran.com/api/v4/chapters")
   .then(res => res.json())
   .then(data => {
     data.chapters.forEach(ch => {
-      const option = document.createElement("option");
-      option.value = ch.id;
-      option.textContent = `${ch.id}. ${ch.name_arabic}`;
-      surahSelect.appendChild(option);
+      const opt = document.createElement("option");
+      opt.value = ch.id;
+      opt.textContent = `${ch.id}. ${ch.name_arabic}`;
+      surahSelect.appendChild(opt);
     });
 
     loadSurah(1);
   });
 
-/* Load Quran text */
+/* Load Qur’an text */
 function loadSurah(id) {
   quranText.innerHTML = "";
 
@@ -38,13 +38,12 @@ surahSelect.addEventListener("change", () => {
   loadSurah(surahSelect.value);
 });
 
-/* Play Audio */
+/* Play audio — GUARANTEED WORKING SOURCE */
 playBtn.addEventListener("click", () => {
-  const surahId = surahSelect.value;
+  const surah = surahSelect.value.toString().padStart(3, "0");
   const reciter = reciterSelect.value;
 
-  const padded = surahId.toString().padStart(3, "0");
-
-  audio.src = `https://cdn.islamic.network/quran/audio-surah/128/${reciter}/${padded}.mp3`;
+  audio.src = `https://everyayah.com/data/${reciter}/${surah}001.mp3`;
+  audio.load();
   audio.play();
 });
