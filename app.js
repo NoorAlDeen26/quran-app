@@ -29,16 +29,28 @@ function loadSurah(id) {
 
   fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani`)
     .then(res => res.json())
-    .then(data => {
-      verses = data.verses;
+  .then(data => {
+  const verses = data.verses;
+  const half = Math.ceil(verses.length / 2);
 
-      verses.forEach(v => {
-        const ayah = document.createElement("div");
-        ayah.className = "ayah";
-        ayah.textContent = v.text_uthmani;
-        quranText.appendChild(ayah);
-      });
-    });
+  const leftPage = document.getElementById("leftPage");
+  const rightPage = document.getElementById("quranText");
+
+  leftPage.innerHTML = "";
+  rightPage.innerHTML = "";
+
+  verses.forEach((v, i) => {
+    const ayah = document.createElement("div");
+    ayah.className = "ayah";
+    ayah.textContent = v.text_uthmani;
+
+    if (i < half) {
+      rightPage.appendChild(ayah); // RIGHT page
+    } else {
+      leftPage.appendChild(ayah); // LEFT page
+    }
+  });
+});
 }
 
 surahSelect.addEventListener("change", () => {
