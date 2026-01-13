@@ -1,4 +1,7 @@
 body {
+  background: red !important;
+}
+body {
   font-family: "Amiri", serif;
   background: #f4f4f4;
   margin: 0;
