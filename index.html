@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Qur’an</title>
+  <meta charset="UTF-8">
+  <title>Al-Qur’an</title>
 
-  <!-- Mushaf font -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="mushaf">
-    <div class="page left" id="leftPage"></div>
-    <div class="page right" id="rightPage"></div>
-  </div>
+<h1>Al-Qur’an</h1>
 
-  <!-- Audio controls (already working logic will remain) -->
-  <audio id="audio" controls></audio>
+<div class="controls">
+  <select id="reciterSelect">
+    <option value="Abdul_Basit_Murattal">Abdul Basit (Murattal)</option>
+    <option value="Alafasy">Mishary Al-Afasy</option>
+    <option value="Husary_128kbps">Mahmoud Khalil Al-Husary</option>
+    <option value="Minshawy_Murattal">Al-Minshawi</option>
+    <option value="Saood_ash-Shuraym">Saud Al-Shuraim</option>
+    <option value="Abdurrahmaan_As-Sudais">Abdulrahman Al-Sudais</option>
+  </select>
 
-  <script src="app.js"></script>
+  <select id="surahSelect"></select>
+
+  <button id="playBtn">Play</button>
+</div>
+
+<div class="mushaf">
+  <div class="page" id="leftPage"></div>
+  <div class="page" id="rightPage"></div>
+</div>
+
+<audio id="audio"></audio>
+
+<script src="app.js"></script>
 </body>
 </html>
