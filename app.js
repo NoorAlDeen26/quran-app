@@ -1,88 +1,42 @@
-const surahSelect = document.getElementById("surahSelect");
-const reciterSelect = document.getElementById("reciterSelect");
-const playBtn = document.getElementById("playBtn");
-const audio = document.getElementById("audio");
-const quranText = document.getElementById("quranText");
+const leftPage = document.getElementById("leftPage");
+const rightPage = document.getElementById("rightPage");
 
-let verses = [];
-let currentAyah = 0;
+async function loadSurah(surah = 1) {
+  const res = await fetch(
+    `https://api.quran.com/api/v4/verses/by_chapter/${surah}?language=ar&words=false&text_type=uthmani`
+  );
 
-/* Load Surah list */
-fetch("https://api.quran.com/api/v4/chapters")
-  .then(res => res.json())
-  .then(data => {
-    data.chapters.forEach(ch => {
-      const opt = document.createElement("option");
-      opt.value = ch.id;
-      opt.textContent = `${ch.id}. ${ch.name_arabic}`;
-      surahSelect.appendChild(opt);
-    });
+  const data = await res.json();
+  renderPages(data.verses);
+}
 
-    loadSurah(1);
-  });
-
-/* Load Qur’an text */
-function loadSurah(id) {
-  quranText.innerHTML = "";
-  verses = [];
-  currentAyah = 0;
-
-  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani`)
-    .then(res => res.json())
-  .then(data => {
-  const verses = data.verses;
-  const half = Math.ceil(verses.length / 2);
-
-  const leftPage = document.getElementById("leftPage");
-  const rightPage = document.getElementById("quranText");
-
+function renderPages(verses) {
   leftPage.innerHTML = "";
   rightPage.innerHTML = "";
 
-  verses.forEach((v, i) => {
-    const ayah = document.createElement("div");
-    ayah.className = "ayah";
-    ayah.textContent = v.text_uthmani;
+  let pages = [leftPage, rightPage];
+  let currentPageIndex = 1; // start right page (Mushaf style)
+  let currentPage = pages[currentPageIndex];
 
-    if (i < half) {
-      rightPage.appendChild(ayah); // RIGHT page
-    } else {
-      leftPage.appendChild(ayah); // LEFT page
+  verses.forEach(v => {
+    const span = document.createElement("span");
+    span.className = "ayah";
+    span.innerHTML = `
+      ${v.text_uthmani}
+      <span class="ayah-number">۝ ${v.verse_number} ۝</span>
+    `;
+
+    currentPage.appendChild(span);
+
+    // If page overflows → move to other page
+    if (currentPage.scrollHeight > currentPage.clientHeight) {
+      currentPage.removeChild(span);
+      currentPageIndex = currentPageIndex === 0 ? 1 : 0;
+      currentPage = pages[currentPageIndex];
+      currentPage.appendChild(span);
     }
   });
-});
 }
 
-surahSelect.addEventListener("change", () => {
-  loadSurah(surahSelect.value);
-});
-
-/* Play ayah-by-ayah (FULL SURAH) */
-playBtn.addEventListener("click", () => {
-  currentAyah = 0;
-  playNextAyah();
-});
-
-audio.addEventListener("ended", playNextAyah);
-
-function playNextAyah() {
-  if (currentAyah >= verses.length) return;
-
-  const surah = surahSelect.value.toString().padStart(3, "0");
-  const ayah = (currentAyah + 1).toString().padStart(3, "0");
-  const reciter = reciterSelect.value;
-
-  audio.src = `https://everyayah.com/data/${reciter}/${surah}${ayah}.mp3`;
-  audio.load();
-  audio.play();
-
-  currentAyah++;
-}
-
-const cover = document.getElementById("coverScreen")
-const mushaf = document.getElementById("mushafScreen");
-
-cover.addEventListener("click", () => {
-  cover.classList.add("hidden");
-  mushaf.classList.remove("hidden");
-});
+// Load Surah Al-Fatihah by default
+loadSurah(1);
