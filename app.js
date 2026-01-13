@@ -1,42 +1,78 @@
+const surahSelect = document.getElementById("surahSelect");
+const reciterSelect = document.getElementById("reciterSelect");
+const playBtn = document.getElementById("playBtn");
+const audio = document.getElementById("audio");
 const leftPage = document.getElementById("leftPage");
 const rightPage = document.getElementById("rightPage");
 
-async function loadSurah(surah = 1) {
-  const res = await fetch(
-    `https://api.quran.com/api/v4/verses/by_chapter/${surah}?language=ar&words=false&text_type=uthmani`
-  );
+let verses = [];
+let currentAyah = 0;
 
-  const data = await res.json();
-  renderPages(data.verses);
+/* Load Surah List */
+fetch("https://api.quran.com/api/v4/chapters")
+  .then(res => res.json())
+  .then(data => {
+    data.chapters.forEach(ch => {
+      const opt = document.createElement("option");
+      opt.value = ch.id;
+      opt.textContent = `${ch.id}. ${ch.name_arabic}`;
+      surahSelect.appendChild(opt);
+    });
+    loadSurah(1);
+  });
+
+surahSelect.addEventListener("change", () => {
+  loadSurah(surahSelect.value);
+});
+
+/* Load Qur’an Text */
+function loadSurah(id) {
+  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani`)
+    .then(res => res.json())
+    .then(data => {
+      verses = data.verses;
+      renderPages();
+    });
 }
 
-function renderPages(verses) {
+/* Render Mushaf Pages */
+function renderPages() {
   leftPage.innerHTML = "";
   rightPage.innerHTML = "";
 
-  let pages = [leftPage, rightPage];
-  let currentPageIndex = 1; // start right page (Mushaf style)
-  let currentPage = pages[currentPageIndex];
+  let currentPage = rightPage;
 
   verses.forEach(v => {
     const span = document.createElement("span");
-    span.className = "ayah";
-    span.innerHTML = `
-      ${v.text_uthmani}
-      <span class="ayah-number">۝ ${v.verse_number} ۝</span>
-    `;
+    span.innerHTML = `${v.text_uthmani} <span class="ayah-number">۝${v.verse_number}۝</span> `;
 
     currentPage.appendChild(span);
 
-    // If page overflows → move to other page
     if (currentPage.scrollHeight > currentPage.clientHeight) {
       currentPage.removeChild(span);
-      currentPageIndex = currentPageIndex === 0 ? 1 : 0;
-      currentPage = pages[currentPageIndex];
+      currentPage = leftPage;
       currentPage.appendChild(span);
     }
   });
 }
 
-// Load Surah Al-Fatihah by default
-loadSurah(1);
+/* Audio Playback */
+playBtn.addEventListener("click", () => {
+  currentAyah = 0;
+  playNextAyah();
+});
+
+audio.addEventListener("ended", playNextAyah);
+
+function playNextAyah() {
+  if (currentAyah >= verses.length) return;
+
+  const surah = surahSelect.value.toString().padStart(3, "0");
+  const ayah = (currentAyah + 1).toString().padStart(3, "0");
+  const reciter = reciterSelect.value;
+
+  audio.src = `https://everyayah.com/data/${reciter}/${surah}${ayah}.mp3`;
+  audio.play();
+
+  currentAyah++;
+}
