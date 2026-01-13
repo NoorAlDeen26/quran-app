@@ -1,49 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Al-Qur’an</title>
-<link rel="stylesheet" href="style.css?v=2">
-</head>
+  <meta charset="UTF-8" />
+  <title>Qur’an</title>
+
+  <!-- Mushaf font -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
-  <h1>Al-Qur’an</h1>
-
-  <div class="controls">
-    <select id="reciterSelect">
-  <option value="Abdul_Basit_Murattal_64kbps">Abdul Basit (Murattal)</option>
-  <option value="AbdulSamad_64kbps_QuranExplorer.Com">Abdul Samad</option>
-  <option value="Alafasy_64kbps">Mishary Alafasy</option>
-  <option value="Husary_64kbps">Mahmoud Al-Husary</option>
-  <option value="Saood_ash-Shuraym_64kbps">Saud Al-Shuraym</option>
-  <option value="Abdurrahmaan_As-Sudais_64kbps">Abdulrahman Al-Sudais</option>
-  <option value="Ghamadi_40kbps">Saad Al-Ghamdi</option>
-</select>
-    <select id="surahSelect"></select>
-
-    <button id="playBtn">Play</button>
+  <div class="mushaf">
+    <div class="page left" id="leftPage"></div>
+    <div class="page right" id="rightPage"></div>
   </div>
 
-<div id="coverScreen" class="cover-screen">
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/8/89/Quran_with_rehal.jpg"
-    class="quran-cover"
-    alt="Qur'an Cover"
-  />
-  <p class="tap-text">Tap to Open Qur’an</p>
-</div>
-
-<div id="mushafScreen" class="mushaf hidden">
-  <div class="page left" id="leftPage"></div>
-
-  <div class="page right">
-    <div id="quranText"></div>
-  </div>
-</div>
-
-
+  <!-- Audio controls (already working logic will remain) -->
   <audio id="audio" controls></audio>
 
   <script src="app.js"></script>
