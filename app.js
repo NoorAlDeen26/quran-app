@@ -40,18 +40,16 @@ function renderPages() {
   leftPage.innerHTML = "";
   rightPage.innerHTML = "";
 
-  let currentPage = rightPage;
+  let halfway = Math.ceil(verses.length / 2);
 
-  verses.forEach(v => {
+  verses.forEach((v, index) => {
     const span = document.createElement("span");
-    span.innerHTML = `${v.text_uthmani} <span class="ayah-number">۝${v.verse_number}۝</span> `;
+    span.innerHTML = `${v.text_uthmani} <span class="ayah-number">﴿${v.verse_number}﴾</span> `;
 
-    currentPage.appendChild(span);
-
-    if (currentPage.scrollHeight > currentPage.clientHeight) {
-      currentPage.removeChild(span);
-      currentPage = leftPage;
-      currentPage.appendChild(span);
+    if (index < halfway) {
+      rightPage.appendChild(span);
+    } else {
+      leftPage.appendChild(span);
     }
   });
 }
