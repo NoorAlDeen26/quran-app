@@ -7,6 +7,17 @@ const rightPage = document.getElementById("rightPage");
 
 let verses = [];
 let currentAyah = 0;
+/* =========================
+   RECITER AUDIO MAP
+========================= */
+
+const RECITERS = {
+  "Abdul Basit (Murattal)": "AbdulBaset/Murattal",
+  "Al-Minshawi (Murattal)": "Minshawi/Murattal",
+  "Saad Al-Ghamdi": "Ghamadi",
+  "Maher Al-Muaiqly": "Maher_AlMuaiqly",
+  "Abdurrahman Al-Sudais": "Abdurrahman_AlSudais"
+};
 
 /* Load Surah List */
 fetch("https://api.quran.com/api/v4/chapters")
@@ -67,7 +78,8 @@ function playNextAyah() {
 
   const surah = surahSelect.value.toString().padStart(3, "0");
   const ayah = (currentAyah + 1).toString().padStart(3, "0");
-  const reciter = reciterSelect.value;
+const reciter = RECITERS[reciterSelect.value];
+if (!reciter) return;
 
   audio.src = `https://everyayah.com/data/${reciter}/${surah}${ayah}.mp3`;
   audio.play();
