@@ -1,39 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Al-Qur’an</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Qur’an Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h1>Al-Qur’an</h1>
+<div class="app">
 
-<div class="controls">
-  <select id="reciterSelect">
-    <option value="Abdul_Basit_Murattal">Abdul Basit (Murattal)</option>
-    <option value="Alafasy">Mishary Al-Afasy</option>
-    <option value="Husary_128kbps">Mahmoud Khalil Al-Husary</option>
-    <option value="Minshawy_Murattal">Al-Minshawi</option>
-    <option value="Saood_ash-Shuraym">Saud Al-Shuraim</option>
-    <option value="Abdurrahmaan_As-Sudais">Abdulrahman Al-Sudais</option>
-  </select>
+  <header>
+    <h1>📖 Qur’an</h1>
 
-  <select id="surahSelect"></select>
-
-  <button id="playBtn">Play</button>
-</div>
-
-<div class="mushaf">
-  <div class="page" id="leftPage"></div>
-  <div class="page" id="rightPage"></div>
-</div>
-
-<audio id="audio" controls></audio>
-
-<script src="app.js"></script>
-</body>
-</html>
+    <select id="reciterSelect">
+      <option value="AbdulBaset_Murattal">Abdul Basit (Murattal)</option>
+      <option value="Alafasy">Mishary Alafasy</option
