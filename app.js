@@ -1,88 +1,22 @@
-const surahSelect = document.getElementById("surahSelect");
-const reciterSelect = document.getElementById("reciterSelect");
-const playBtn = document.getElementById("playBtn");
+const cover = document.getElementById("coverScreen");
+const app = document.getElementById("mainApp");
 const audio = document.getElementById("audio");
-const leftPage = document.getElementById("leftPage");
-const rightPage = document.getElementById("rightPage");
+const reciter = document.getElementById("reciter");
 
-let verses = [];
-let currentAyah = 0;
-/* =========================
-   RECITER AUDIO MAP
-========================= */
-
-const RECITERS = {
-  "Abdul Basit (Murattal)": "AbdulBaset/Murattal",
-  "Al-Minshawi (Murattal)": "Minshawi/Murattal",
-  "Saad Al-Ghamdi": "Ghamadi",
-  "Maher Al-Muaiqly": "Maher_AlMuaiqly",
-  "Abdurrahman Al-Sudais": "Abdurrahman_AlSudais"
+const reciters = {
+  basit: "https://server7.mp3quran.net/basit/001.mp3",
+  afasy: "https://server8.mp3quran.net/afs/001.mp3"
 };
 
-/* Load Surah List */
-fetch("https://api.quran.com/api/v4/chapters")
-  .then(res => res.json())
-  .then(data => {
-    data.chapters.forEach(ch => {
-      const opt = document.createElement("option");
-      opt.value = ch.id;
-      opt.textContent = `${ch.id}. ${ch.name_arabic}`;
-      surahSelect.appendChild(opt);
-    });
-    loadSurah(1);
-  });
-
-surahSelect.addEventListener("change", () => {
-  loadSurah(surahSelect.value);
+cover.addEventListener("click", () => {
+  cover.classList.add("hidden");
+  app.classList.remove("hidden");
+  loadAudio();
 });
 
-/* Load Qur’an Text */
-function loadSurah(id) {
-  fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani`)
-    .then(res => res.json())
-    .then(data => {
-      verses = data.verses;
-      renderPages();
-    });
-}
+reciter.addEventListener("change", loadAudio);
 
-/* Render Mushaf Pages */
-function renderPages() {
-  leftPage.innerHTML = "";
-  rightPage.innerHTML = "";
-
-  let halfway = Math.ceil(verses.length / 2);
-
-  verses.forEach((v, index) => {
-    const span = document.createElement("span");
-    span.innerHTML = `${v.text_uthmani} <span class="ayah-number">﴿${v.verse_number}﴾</span> `;
-
-    if (index < halfway) {
-      rightPage.appendChild(span);
-    } else {
-      leftPage.appendChild(span);
-    }
-  });
-}
-
-/* Audio Playback */
-playBtn.addEventListener("click", () => {
-  currentAyah = 0;
-  playNextAyah();
-});
-
-audio.addEventListener("ended", playNextAyah);
-
-function playNextAyah() {
-  if (currentAyah >= verses.length) return;
-
-  const surah = surahSelect.value.toString().padStart(3, "0");
-  const ayah = (currentAyah + 1).toString().padStart(3, "0");
-const reciter = RECITERS[reciterSelect.value];
-if (!reciter) return;
-
-  audio.src = `https://everyayah.com/data/${reciter}/${surah}${ayah}.mp3`;
-  audio.play();
-
-  currentAyah++;
+function loadAudio() {
+  audio.src = reciters[reciter.value];
+  audio.load();
 }
