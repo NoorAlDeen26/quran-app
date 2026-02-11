@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="quranText" class="quran-text"></div>
 
 <div class="container">
 
@@ -20,6 +21,15 @@
   <div id="mainApp" class="hidden">
 
     <header>
+      <select id="surahSelect"></select>
+
+<select id="reciterSelect">
+  <option value="AbdulBaset">Abdul Basit</option>
+  <option value="Alafasy">Mishary Alafasy</option>
+</select>
+
+<audio id="audioPlayer" controls></audio>
+
       <h2>Surah Al-Fātiḥah</h2>
 
       <select id="reciter">
