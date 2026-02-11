@@ -1,76 +1,55 @@
 body {
-  margin: 0;
-  background: #f3efe7;
-  font-family: "Amiri", serif;
+background: #0d1f1a;
+margin: 0;
+font-family: 'Amiri Quran', serif;
+color: #111;
+display: flex;
+justify-content: center;
 }
 
 .container {
-  max-width: 800px;
-  margin: auto;
+width: 90%;
+max-width: 1100px;
+text-align: center;
 }
 
-.cover-screen {
-  height: 100vh;
-  background: linear-gradient(#0a3d2e, #052e22);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.title {
+color: white;
+margin-top: 30px;
+font-size: 42px;
 }
 
-.cover-inner {
-  text-align: center;
-  animation: fadeIn 1.5s ease;
+.controls {
+margin: 20px 0;
 }
 
-.cover-inner h1 {
-  font-size: 3rem;
+select, button {
+padding: 8px 12px;
+font-size: 16px;
+margin: 5px;
 }
 
-.hidden {
-  display: none;
+#book {
+background: #f6f1e7;
+padding: 40px;
+border-radius: 12px;
+box-shadow: 0 0 25px rgba(0,0,0,0.4);
+min-height: 500px;
 }
 
-header {
-  padding: 15px;
-  text-align: center;
-  background: #0a3d2e;
-  color: white;
+#quranText {
+font-size: 28px;
+line-height: 2.2;
+direction: rtl;
+text-align: right;
 }
 
-select {
-  margin-top: 10px;
-  padding: 6px;
-  font-size: 1rem;
-}
-
-audio {
-  width: 100%;
-  margin: 15px 0;
-}
-
-.quran-page {
-  background: #fff;
-  padding: 25px;
-  margin: 15px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-.ayah {
-  font-size: 1.8rem;
-  line-height: 2.6;
-  text-align: center;
-}
-
-.ayah span {
-  font-size: 1.2rem;
-  margin-left: 5px;
-  color: #0a3d2e;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.ayah-number {
+display: inline-block;
+border: 1px solid #444;
+border-radius: 50%;
+padding: 3px 9px;
+margin: 0 6px;
+font-size: 16px;
+vertical-align: middle;
 }
