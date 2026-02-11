@@ -1,55 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Qur’an Player</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Al-Qur’an</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
-<div id="quranText" class="quran-text"></div>
 
-  <div id="coverScreen" class="cover-screen">
-    <div class="cover-inner">
-      <h1>📖 Qur’an</h1>
-      <p>Tap to Open</p>
-    </div>
-  </div>
+<h1 class="title">Al-Qur’an</h1>
 
-  <div id="mainApp" class="hidden">
-
-    <header>
-      <select id="surahSelect"></select>
+<div class="controls">
+<select id="surahSelect"></select>
 
 <select id="reciterSelect">
-  <option value="AbdulBaset">Abdul Basit</option>
-  <option value="Alafasy">Mishary Alafasy</option>
+<option value="abdul_basit_murattal">Abdul Basit (Murattal)</option>
+<option value="afs">Mishary Alafasy</option>
+<option value="sudais">Sudais</option>
+<option value="shuraym">Shuraym</option>
+<option value="minshawi">Minshawi</option>
 </select>
 
-<audio id="audioPlayer" controls></audio>
+<button id="playBtn">Play</button>
+</div>
 
-      <h2>Surah Al-Fātiḥah</h2>
+<div id="book">
+<div id="quranText"></div>
+</div>
 
-      <select id="reciter">
-        <option value="basit">Abdul Basit (Murattal)</option>
-        <option value="afasy">Mishary Al-Afasy</option>
-      </select>
-    </header>
-
-    <audio id="audio" controls></audio>
-
- <div class="quran-page">
-      <p class="ayah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ <span>﴿١﴾</span></p>
-      <p class="ayah">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span>﴿٢﴾</span></p>
-      <p class="ayah">الرَّحْمَٰنِ الرَّحِيمِ <span>﴿٣﴾</span></p>
-      <p class="ayah">مَالِكِ يَوْمِ الدِّينِ <span>﴿٤﴾</span></p>
-      <p class="ayah">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span>﴿٥﴾</span></p>
-      <p class="ayah">اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span>﴿٦﴾</span></p>
-      <p class="ayah">صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span>﴿٧﴾</span></p>
-    </div>
-  </div>
+<audio id="audioPlayer"></audio>
 
 </div>
 
